@@ -1,6 +1,6 @@
 {
   "name": "murdermysterycheats",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Set of cheats for Murder Mystery",
   "main": "src/index.js",
   "scripts": {

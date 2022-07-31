@@ -1,5 +1,5 @@
 module.exports = function (module) {
-  const knifes = [
+  const knives = [
     267, 272, 256, 280, 271, 268, 32, 273, 369, 277, 406, 400, 285, 260, 421,
     19, 398, 352, 391, 396, 357, 279, 175, 409, 364, 405, 366, 283, 276, 293,
     359, 349, 351, 333, 382, 340,
@@ -19,17 +19,25 @@ module.exports = function (module) {
       );
 
       if (!target) return;
-      player.sendMessage(`§3§l${target.name} has a bow!`);
+      if (module.currentRole === 'murderer') {
+        player.sendMessage(`§3§l${target.name} has a bow!`);
+        player.lcPlayer.addTeammate(target.uuid);
+      }
     }
 
-    if (module.murderMysteryEnabled && knifes.includes(item.blockId)) {
+    if (module.murderMysteryEnabled && knives.includes(item.blockId)) {
       const target = player.connectedPlayers.find(
         (p) => p.entityId === data.entityId
       );
 
       if (!target) return;
-      player.sendMessage(`§c§l${target.name} is a murderer!`);
-      player.lcPlayer.addTeammate(target.uuid);
+      if (
+        module.currentRole === 'innoncent' ||
+        module.currentRole === 'detective'
+      ) {
+        player.sendMessage(`§c§l${target.name} is a murderer!`);
+        player.lcPlayer.addTeammate(target.uuid);
+      }
     }
   };
 

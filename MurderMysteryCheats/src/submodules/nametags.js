@@ -1,12 +1,4 @@
 module.exports = function (module) {
-  module.murderMysteryEnabled = false;
-
-  module.onLocationUpdate = async () => {
-    module.murderMysteryEnabled =
-      !!(await toolbox.getConfig()).modules.murderMysteryCheats &&
-      player.isInGameMode('MURDER_');
-  };
-
   const nametagsListener = (data, meta, toClient) => {
     if (meta.name !== 'scoreboard_team') return;
 

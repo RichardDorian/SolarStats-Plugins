@@ -1,5 +1,6 @@
 const finder = require('./submodules/finder');
 const nametags = require('./submodules/nametags');
+const role = require('./submodules/role');
 
 module.exports = async function () {
   const settingItem = new toolbox.Item(261);
@@ -23,7 +24,17 @@ module.exports = async function () {
     'murderMysteryCheats'
   );
 
-  const submodules = [nametags(module), finder(module)];
+  module.murderMysteryEnabled = false;
+  module.currentRole = '';
+
+  module.onLocationUpdate = async () => {
+    module.currentRole = '';
+    module.murderMysteryEnabled =
+      !!(await toolbox.getConfig()).modules.murderMysteryCheats &&
+      player.isInGameMode('MURDER_');
+  };
+
+  const submodules = [nametags(module), finder(module), role(module)];
 
   module.customCode = () => {
     for (const submodule of submodules) submodule[0]();
